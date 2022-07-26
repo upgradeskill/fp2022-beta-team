@@ -6,10 +6,10 @@ import (
 )
 
 type UserServiceImpl struct {
-	userRepo userPort.UserRepository
+	userRepo userPort.IUserRepository
 }
 
-func NewUserService(userRepo userPort.UserRepository) *UserServiceImpl {
+func NewUserService(userRepo userPort.IUserRepository) *UserServiceImpl {
 	return &UserServiceImpl{
 		userRepo: userRepo,
 	}

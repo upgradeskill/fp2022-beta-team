@@ -1,4 +1,4 @@
-package model
+package user
 
 import (
 	"github.com/upgradeskill/beta-team/internal/core/domain"

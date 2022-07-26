@@ -4,7 +4,7 @@ import (
 	"github.com/upgradeskill/beta-team/internal/core/domain"
 )
 
-type UserRepository interface {
+type IUserRepository interface {
 	CreateUser(user *domain.User) error
 	GetUser(id uint64) (*domain.User, error)
 	ListUsers() ([]*domain.User, error)
@@ -12,7 +12,7 @@ type UserRepository interface {
 	DeleteUser(id uint64) error
 }
 
-type UserService interface {
+type IUserService interface {
 	CreateUser(user *domain.User) error
 	GetUser(id uint64) (*domain.User, error)
 	ListUsers() ([]*domain.User, error)
