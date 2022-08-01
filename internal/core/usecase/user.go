@@ -1,8 +1,12 @@
 package usecase
 
 import (
+	"context"
+	"errors"
+
 	"github.com/upgradeskill/beta-team/internal/core/domain"
 	userPort "github.com/upgradeskill/beta-team/internal/core/ports"
+	"github.com/upgradeskill/beta-team/internal/requests"
 )
 
 type UserUsecaseImpl struct {
@@ -13,6 +17,13 @@ func NewUserService(userRepo userPort.IUserRepository) *UserUsecaseImpl {
 	return &UserUsecaseImpl{
 		userRepo: userRepo,
 	}
+}
+
+func (u *UserUsecaseImpl) RegisterUser(ctx context.Context, input *requests.RegisterRequest) error {
+	if input.Password != input.ConfirmPassword {
+		return errors.New("the passwords are not equal")
+	}
+	return nil
 }
 
 func (u *UserUsecaseImpl) GetUser(id uint64) (*domain.Users, error) {
