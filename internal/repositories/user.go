@@ -9,16 +9,16 @@ type userRepository struct {
 	DB *gorm.DB
 }
 
-func NewUserRepository(db *gorm.DB) *userRepository {
-	return &userRepository{DB: db}
+func NewUserRepository(db *gorm.DB) userRepository {
+	return userRepository{DB: db}
 }
 
-func (ur *userRepository) CreateUser(user *domain.User) error {
+func (ur *userRepository) CreateUser(user *domain.Users) error {
 	return ur.DB.Create(user).Error
 }
 
-func (ur *userRepository) GetUser(id uint64) (*domain.User, error) {
-	var user domain.User
+func (ur *userRepository) GetUser(id uint64) (*domain.Users, error) {
+	var user domain.Users
 	err := ur.DB.First(&user, id).Error
 	if err != nil {
 		return nil, err
@@ -26,8 +26,8 @@ func (ur *userRepository) GetUser(id uint64) (*domain.User, error) {
 	return &user, nil
 }
 
-func (ur *userRepository) ListUsers() ([]*domain.User, error) {
-	var users []*domain.User
+func (ur *userRepository) ListUsers() ([]*domain.Users, error) {
+	var users []*domain.Users
 	err := ur.DB.Find(&users).Error
 	if err != nil {
 		return nil, err
@@ -35,10 +35,10 @@ func (ur *userRepository) ListUsers() ([]*domain.User, error) {
 	return users, nil
 }
 
-func (ur *userRepository) UpdateUser(user *domain.User) error {
+func (ur *userRepository) UpdateUser(user *domain.Users) error {
 	return ur.DB.Save(user).Error
 }
 
 func (ur *userRepository) DeleteUser(id uint64) error {
-	return ur.DB.Delete(&domain.User{ID: id}).Error
+	return ur.DB.Delete(&domain.Users{ID: id}).Error
 }
