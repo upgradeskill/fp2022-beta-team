@@ -7,10 +7,17 @@ import (
 	"github.com/upgradeskill/beta-team/pkg/envar"
 )
 
+type PosConfig struct {
+	AppName       string `json:"app_name,omitempty"`
+	HTTPPort      int    `json:"http_port,omitempty"`
+	HTTPDebugPort int    `json:"http_debug_port,omitempty"`
+}
+
 type Group struct {
-	Server   Server   `json:"server,omitempty"`
-	Database Database `json:"database,omitempty"`
-	Redis    Redis    `json:"redis,omitempty"`
+	Server   Server    `json:"server,omitempty"`
+	Database Database  `json:"database,omitempty"`
+	Redis    Redis     `json:"redis,omitempty"`
+	Pos      PosConfig `json:"pos,omitempty"`
 }
 
 type Server struct {
@@ -55,7 +62,7 @@ func LoadConfig() *Group {
 			Port:     envar.GetEnv("DATABASE_PORT", 3306),
 			Username: envar.GetEnv("DATABASE_USERNAME", "root"),
 			Password: envar.GetEnv("DATABASE_PASSWORD", "root"),
-			Schema:   envar.GetEnv("DATABASE_SCHEMA", "inventory"),
+			Schema:   envar.GetEnv("DATABASE_SCHEMA", "minipos"),
 			MaxIdle:  envar.GetEnv("DATABASE_MAX_IDLE", 20),
 			MaxConn:  envar.GetEnv("DATABASE_MAX_CONN", 100),
 		},
