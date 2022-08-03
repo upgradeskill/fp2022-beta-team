@@ -6,6 +6,7 @@ import (
 
 type ICompanyRepository interface {
 	CreateCompany(company *domain.Companies) error
+	GetCompanyByID(id uint64) (*domain.Companies, error)
 }
 
 type ICompanyUsecase interface {

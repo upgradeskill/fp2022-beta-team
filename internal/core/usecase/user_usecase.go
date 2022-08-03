@@ -3,19 +3,23 @@ package usecase
 import (
 	"context"
 	"errors"
+	"log"
 
 	"github.com/upgradeskill/beta-team/internal/core/domain"
-	userPort "github.com/upgradeskill/beta-team/internal/core/ports"
+	port "github.com/upgradeskill/beta-team/internal/core/ports"
 	"github.com/upgradeskill/beta-team/internal/requests"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserUsecaseImpl struct {
-	userRepo userPort.IUserRepository
+	userRepo    port.IUserRepository
+	companyRepo port.ICompanyRepository
 }
 
-func NewUserService(userRepo userPort.IUserRepository) *UserUsecaseImpl {
+func NewUserService(userRepo port.IUserRepository, companyRepo port.ICompanyRepository) *UserUsecaseImpl {
 	return &UserUsecaseImpl{
-		userRepo: userRepo,
+		userRepo:    userRepo,
+		companyRepo: companyRepo,
 	}
 }
 
@@ -23,6 +27,18 @@ func (u *UserUsecaseImpl) RegisterUser(ctx context.Context, input *requests.Regi
 	if input.Password != input.ConfirmPassword {
 		return errors.New("the passwords are not equal")
 	}
+
+	checkCompany, err := u.companyRepo.GetCompanyByID(input.CompanyID)
+	if err != nil {
+		return err
+	}
+
+	if checkCompany.ID == 0 {
+		return errors.New("company not found")
+	}
+
+	user := domain.NewUsers()
+
 	return nil
 }
 
@@ -93,4 +109,13 @@ func (u *UserUsecaseImpl) DeleteUser(id uint64) error {
 	}
 
 	return nil
+}
+
+func hashPassword(password string) string {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 10)
+
+	if err != nil {
+		log.Println(err.Error())
+	}
+	return string(bytes)
 }

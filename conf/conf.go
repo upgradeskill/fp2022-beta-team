@@ -56,6 +56,9 @@ func LoadConfig() *Group {
 		Server: Server{
 			ENV: env,
 		},
+		Pos: PosConfig{
+			HTTPPort: envar.GetEnv("HTTP_PORT", 8081),
+		},
 		Database: Database{
 			Engine:   envar.GetEnv("DATABASE_ENGINE", "mysqli"),
 			Host:     envar.GetEnv("DATABASE_HOST", "localhost"),

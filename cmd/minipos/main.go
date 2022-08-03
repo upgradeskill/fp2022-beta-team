@@ -9,17 +9,12 @@ import (
 	"os"
 	"os/signal"
 
-	// "bitbucket.org/klopos/svc-inventory/conf"
-	// "bitbucket.org/klopos/svc-inventory/pkg/db"
-	// "bitbucket.org/klopos/svc-inventory/pkg/fflag"
-	// "bitbucket.org/klopos/svc-inventory/pkg/mkafka"
-	// "bitbucket.org/klopos/svc-inventory/pkg/mlog"
-	// "bitbucket.org/klopos/svc-inventory/pkg/mvalidator"
 	"github.com/labstack/echo/v4"
 	"github.com/upgradeskill/beta-team/conf"
 	"github.com/upgradeskill/beta-team/pkg/db"
 	"github.com/upgradeskill/beta-team/pkg/mlog"
 	"github.com/upgradeskill/beta-team/pkg/mvalidator"
+	"github.com/upgradeskill/beta-team/pkg/web"
 	_ "go.uber.org/automaxprocs"
 	"gorm.io/gorm"
 )
@@ -33,6 +28,12 @@ type app struct {
 	logger    mlog.Logger
 	database  *gorm.DB
 	validator mvalidator.Validator
+}
+
+func route(app *app) {
+	app.echo.GET("v1/health/ping", func(c echo.Context) error {
+		return web.ResponseFormatter(c, http.StatusOK, "Success", map[string]any{"status": "ok"}, nil)
+	})
 }
 
 func main() {
@@ -62,9 +63,7 @@ func main() {
 	}
 
 	// set common middleware
-	// fulfill dependency and routing
-	//PrepareCommonMiddleware(&application)
-	PosRoute(&application)
+	route(&application)
 
 	// Start echo server on goroutine
 	go func() {
