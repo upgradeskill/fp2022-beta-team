@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"time"
@@ -14,10 +14,6 @@ type Users struct {
 	CompanyID uint64    `json:"id_company"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
-}
-
-func (Users) TableName() string {
-	return "users"
 }
 
 func NewUsers(
