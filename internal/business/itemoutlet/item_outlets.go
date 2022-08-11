@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"time"
@@ -9,10 +9,6 @@ type ItemOutlets struct {
 	ItemID    uint64    `json:"item_id"`
 	OutletID  uint64    `json:"outlet_id"`
 	CreatedAt time.Time `json:"created_at"`
-}
-
-func (ItemOutlets) TableName() string {
-	return "item_outlets"
 }
 
 func NewItemOutlets(

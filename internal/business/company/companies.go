@@ -1,4 +1,4 @@
-package entity
+package company
 
 import (
 	"time"
@@ -10,10 +10,6 @@ type Companies struct {
 	Description string    `json:"description"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
-}
-
-func (Companies) TableName() string {
-	return "companies"
 }
 
 func NewCompanies(

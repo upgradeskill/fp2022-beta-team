@@ -11,10 +11,6 @@ type ItemCategories struct {
 	CreatedAt  time.Time `json:"created_at"`
 }
 
-func (ItemCategories) TableName() string {
-	return "item_categories"
-}
-
 func NewItemCategories(
 	id uint64,
 	ItemID uint64,

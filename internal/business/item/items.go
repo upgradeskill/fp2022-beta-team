@@ -1,4 +1,4 @@
-package domain
+package entity
 
 import (
 	"time"
@@ -14,10 +14,6 @@ type Items struct {
 	ItemUnit      string    `json:"item_unit"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
-}
-
-func (Items) TableName() string {
-	return "items"
 }
 
 func NewItems(
