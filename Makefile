@@ -23,7 +23,7 @@ confirm:
 #
 ## run/cogs: Running CoGS service (REST API)
 .PHONY: run/pos
-run/cogs:
+run/pos:
 	go run ./app/main.go
 
 # run/swagger: Running swagger (API DOC) service

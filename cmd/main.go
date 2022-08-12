@@ -19,8 +19,8 @@ import (
 	"gorm.io/gorm"
 )
 
-const version = "1.0.0"
-const appName = "minipos"
+// const version = "1.0.0"
+// const appName = "minipos"
 
 type app struct {
 	echo      *echo.Echo
@@ -34,6 +34,7 @@ func route(app *app) {
 	app.echo.GET("v1/health/ping", func(c echo.Context) error {
 		return web.ResponseFormatter(c, http.StatusOK, "Success", map[string]any{"status": "ok"}, nil)
 	})
+
 }
 
 func main() {
@@ -101,3 +102,9 @@ func main() {
 	logger.Info("Done cleanup tasks...")
 	logger.Sync()
 }
+
+//server
+//server.Initialize(
+//	userHandlers,
+// 	)
+// }
